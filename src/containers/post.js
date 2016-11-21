@@ -5,10 +5,17 @@ import Post from '../components/post';
 const mapStateToProps = (state) => {
   let selectedItem = state.posts.find(post => post.id === state.selectedItem);
 
+  if (selectedItem) {
+    return {
+      coverURL: selectedItem.coverURL,
+      title: selectedItem.title,
+      content: selectedItem.content,
+    };
+  }
   return {
-    coverURL: selectedItem.coverURL,
-    title: selectedItem.title,
-    content: selectedItem.content,
+    coverURL: undefined,
+    title: undefined,
+    content: undefined,
   };
 };
 

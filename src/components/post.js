@@ -10,7 +10,9 @@ class Post extends Component {
     let { coverURL, title, content } = this.props;
     return (
       <View>
-        <Text> {title} </Text>
+        <Image source={coverURL}>
+
+        </Image>
       </View>
     );
   }
