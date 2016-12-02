@@ -9,6 +9,7 @@ const mapStateToProps = (state) => {
   return {
     posts: state.posts,
     currentRouteIndex: state.currentRouteIndex,
+    selectedItem: state.selectedItem,
   };
 };
 

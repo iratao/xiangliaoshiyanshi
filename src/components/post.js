@@ -10,8 +10,7 @@ class Post extends Component {
     let { coverURL, title, content } = this.props;
     return (
       <View>
-        <Image source={coverURL}>
-
+        <Image source={{ uri: coverURL }}>
         </Image>
       </View>
     );
@@ -19,7 +18,7 @@ class Post extends Component {
 }
 
 Post.propTypes = {
-  coverURL: PropTypes.number.isRequired,
+  coverURL: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
 };

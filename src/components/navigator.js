@@ -48,8 +48,8 @@ export default class NavigatorApp extends Component {
   }
 
   _renderScene(props) {
-    const state = props.scene.route;
-    let { posts, getPosts } = this.props;
+    const state = props.navigationState.routes[props.navigationState.index];
+    let { posts, getPosts, selectedItem } = this.props;
 
     if (state.key === RouteKeys.POSTS) {
       return (
@@ -60,8 +60,13 @@ export default class NavigatorApp extends Component {
         />
       );
     } else if (state.key === RouteKeys.POST) {
+      let post = posts.find(mpost => mpost.id === selectedItem);
       return (
-        <Post />
+        <Post
+          coverURL={post.coverThumbnail}
+          title={post.name}
+          content={post.name}
+        />
       );
     }
     return null;
@@ -78,11 +83,15 @@ export default class NavigatorApp extends Component {
   }
 
   _renderTitleComponent(props) {
-    return (
-      <NavigationHeader.Title>
-        {'Some Text'}
-      </NavigationHeader.Title>
-    );
+    const state = props.scene.route;
+    if (state.key === RouteKeys.POSTS) {
+      return (
+        <NavigationHeader.Title>
+          {'香料实验室'}
+        </NavigationHeader.Title>
+      );
+    }
+    return null;
   }
 
   render() {
@@ -102,6 +111,7 @@ export default class NavigatorApp extends Component {
 
 NavigatorApp.propTypes = {
   getPosts: PropTypes.func.isRequired,
+  selectedItem: PropTypes.number,
   posts: PropTypes.array.isRequired,
   selectItem: PropTypes.func.isRequired,
   currentRouteIndex: PropTypes.number.isRequired,

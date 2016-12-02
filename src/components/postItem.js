@@ -2,32 +2,25 @@ import React, { Component, PropTypes } from 'react';
 import { StyleSheet, Text, View, Image, TouchableHighlight } from 'react-native';
 
 const styles = StyleSheet.create({
-  postItem: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
+  row: {
+    justifyContent: 'center',
+    padding: 5,
+    margin: 3,
+    width: 100,
+    height: 100,
+    backgroundColor: '#F6F6F6',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: '#CCC',
   },
-  cover: {
+  thumb: {
+    width: 64,
+    height: 64,
+  },
+  text: {
     flex: 1,
-    height: 150,
-    resizeMode: 'cover',
-  },
-  info: {
-    flex: 1,
-    alignItems: 'flex-start',
-    flexDirection: 'column',
-    alignSelf: 'flex-start',
-    paddingLeft: 10,
-    paddingTop: 10,
-    paddingBottom: 10,
-  },
-  shortDescription: {
-    fontSize: 18,
-  },
-  title: {
-    fontSize: 18,
+    marginTop: 5,
     fontWeight: 'bold',
   },
 });
@@ -41,12 +34,11 @@ class PostItem extends Component {
     let { id, coverURL, title, content } = this.props;
     return (
       <TouchableHighlight onPress={() => this.onItemPressed()}>
-        <View style={styles.postItem}>
-          <Image style={styles.cover} source={coverURL} />
-          <View style={styles.info}>
-            <Text style={styles.title}>{title}</Text>
-            <Text style={styles.shortDescription}>{content}</Text>
-          </View>
+        <View style={styles.row}>
+          <Image style={styles.thumb} source={{ uri: coverURL }} />
+          <Text style={styles.text}>
+            {title}
+          </Text>
         </View>
       </TouchableHighlight>
     );
@@ -54,8 +46,8 @@ class PostItem extends Component {
 }
 
 PostItem.propTypes = {
-  id: PropTypes.string.isRequired,
-  coverURL: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,
+  coverURL: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   onItemPressed: PropTypes.func.isRequired,

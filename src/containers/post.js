@@ -7,9 +7,9 @@ const mapStateToProps = (state) => {
 
   if (selectedItem) {
     return {
-      coverURL: selectedItem.coverURL,
-      title: selectedItem.title,
-      content: selectedItem.content,
+      coverURL: selectedItem.coverThumbnail,
+      title: selectedItem.name,
+      content: selectedItem.name,
     };
   }
   return {
