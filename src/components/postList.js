@@ -5,10 +5,11 @@ import PostItem from './postItem';
 
 const styles = StyleSheet.create({
   list: {
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'flex-start',
+    backgroundColor: '#FDFEFE',
   },
 });
 
@@ -19,8 +20,11 @@ class PostList extends Component {
     this.listDataSource = ds.cloneWithRows(props.posts);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.getPosts();
+  }
+
+  componentDidMount() {
   }
 
   componentWillReceiveProps(nextProps) {

@@ -7,6 +7,7 @@ import RouteKeys from '../constants/routeKeys';
 const {
   CardStack: NavigationCardStack,
   Header: NavigationHeader,
+  StateUtils: NavigationStateUtils,
 } = NavigationExperimental;
 
 const styles = StyleSheet.create({
@@ -21,22 +22,45 @@ const styles = StyleSheet.create({
 export default class NavigatorApp extends Component {
   constructor(props) {
     super(props);
-    this.routes = [
-      { key: RouteKeys.POSTS },
-      { key: RouteKeys.POST },
-    ];
-  }
-
-  componentWillMount() {
+    this.routes = props.routes;
     this._renderHeader = this._renderHeader.bind(this);
     this._renderScene = this._renderScene.bind(this);
     this._renderTitleComponent = this._renderTitleComponent.bind(this);
     this.showItemPage = this.showItemPage.bind(this);
   }
 
+  componentWillMount() {
+
+  }
+
+  updateNavigationState(routeKey, action) {
+    let currentNavigationState = this.props.navigationState;
+    let route = this.routes[routeKey];
+    let navAction;
+    switch (action) {
+      case 'pop':
+        navAction = 'pop';
+        break;
+      case 'push':
+        navAction = 'push';
+        break;
+      default:
+        navAction = undefined;
+    }
+
+    if (!navAction) {
+      return;
+    }
+
+    const nextState = NavigationStateUtils[navAction](currentNavigationState, route);
+    if (nextState !== currentNavigationState) {
+      this.props.updateNavigationState(nextState);
+    }
+  }
+
   showItemPage(id) {
     this.props.selectItem(id);
-    this.props.navigateToPage(1);
+    this.updateNavigationState(RouteKeys.SPICE_DETAIL, 'push');
   }
 
   configureScene() {
@@ -44,14 +68,14 @@ export default class NavigatorApp extends Component {
   }
 
   _handleBack() {
-    this.props.navigateToPage(0);
+    this.updateNavigationState(RouteKeys.HOME, 'pop');
   }
 
   _renderScene(props) {
-    const state = props.navigationState.routes[props.navigationState.index];
+    const scene = props.scene;
     let { posts, getPosts, selectedItem } = this.props;
 
-    if (state.key === RouteKeys.POSTS) {
+    if (scene.route.key === RouteKeys.HOME) {
       return (
         <PostList
           posts={posts}
@@ -59,13 +83,14 @@ export default class NavigatorApp extends Component {
           onItemPressed={this.showItemPage}
         />
       );
-    } else if (state.key === RouteKeys.POST) {
+    } else if (scene.route.key === RouteKeys.SPICE_DETAIL) {
       let post = posts.find(mpost => mpost.id === selectedItem);
       return (
         <Post
-          coverURL={post.coverThumbnail}
-          title={post.name}
-          content={post.name}
+          coverURL={post.cover}
+          name={post.name}
+          nameEN={post.nameEN}
+          content={post.introduction}
         />
       );
     }
@@ -84,7 +109,7 @@ export default class NavigatorApp extends Component {
 
   _renderTitleComponent(props) {
     const state = props.scene.route;
-    if (state.key === RouteKeys.POSTS) {
+    if (state.key === RouteKeys.HOME) {
       return (
         <NavigationHeader.Title>
           {'香料实验室'}
@@ -95,12 +120,10 @@ export default class NavigatorApp extends Component {
   }
 
   render() {
+    const { navigationState } = this.props;
     return (
       <NavigationCardStack
-        navigationState={{
-          index: this.props.currentRouteIndex,
-          routes: this.routes,
-        }}
+        navigationState={navigationState}
         style={styles.container}
         renderHeader={this._renderHeader}
         renderScene={this._renderScene}
@@ -114,7 +137,7 @@ NavigatorApp.propTypes = {
   selectedItem: PropTypes.number,
   posts: PropTypes.array.isRequired,
   selectItem: PropTypes.func.isRequired,
-  currentRouteIndex: PropTypes.number.isRequired,
-  navigateToPage: PropTypes.func.isRequired,
-  navigatePreviousPage: PropTypes.func.isRequired,
+  navigationState: PropTypes.object.isRequired,
+  routes: PropTypes.object.isRequired,
+  updateNavigationState: PropTypes.func.isRequired,
 };

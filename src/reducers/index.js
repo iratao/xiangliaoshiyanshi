@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux';
 import posts from './posts';
 import selectedItem from './selectedItem';
-import currentRouteIndex from './currentRouteIndex';
+import navigationState from './navigationState';
+import routes from './routes';
 
 const rootReducer = combineReducers({
   posts,
   selectedItem,
-  currentRouteIndex,
+  navigationState,
+  routes,
 });
 
 export default rootReducer;

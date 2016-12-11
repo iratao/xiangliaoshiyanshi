@@ -4,19 +4,15 @@ import { StyleSheet, Text, View, Image, TouchableHighlight } from 'react-native'
 const styles = StyleSheet.create({
   row: {
     justifyContent: 'center',
-    padding: 5,
     margin: 3,
     width: 100,
     height: 100,
-    backgroundColor: '#F6F6F6',
     alignItems: 'center',
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: '#CCC',
   },
   thumb: {
-    width: 64,
-    height: 64,
+    width: 80,
+    height: 80,
+    borderRadius: 40,
   },
   text: {
     flex: 1,
