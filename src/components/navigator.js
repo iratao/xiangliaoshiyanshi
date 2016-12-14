@@ -1,5 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { Navigator, StyleSheet, NavigationExperimental } from 'react-native';
+import { Navigator, StyleSheet, NavigationExperimental, View } from 'react-native';
+import ActionButton from 'react-native-action-button';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 import PostList from './postList';
 import Post from '../containers/post';
 import RouteKeys from '../constants/routeKeys';
@@ -14,8 +17,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  exampleContainer: {
+  navigator: {
     flex: 1,
+  },
+  actionButtonIcon: {
+    fontSize: 20,
+    height: 22,
+    color: 'yellow',
   },
 });
 
@@ -26,7 +34,9 @@ export default class NavigatorApp extends Component {
     this._renderHeader = this._renderHeader.bind(this);
     this._renderScene = this._renderScene.bind(this);
     this._renderTitleComponent = this._renderTitleComponent.bind(this);
+    this._handleBack = this._handleBack.bind(this);
     this.showItemPage = this.showItemPage.bind(this);
+    this._onLabButtonPressed = this._onLabButtonPressed.bind(this);
   }
 
   componentWillMount() {
@@ -36,23 +46,23 @@ export default class NavigatorApp extends Component {
   updateNavigationState(routeKey, action) {
     let currentNavigationState = this.props.navigationState;
     let route = this.routes[routeKey];
-    let navAction;
+    let nextState;
+
     switch (action) {
       case 'pop':
-        navAction = 'pop';
+        nextState = NavigationStateUtils.pop(currentNavigationState);
         break;
       case 'push':
-        navAction = 'push';
+        nextState = NavigationStateUtils.push(currentNavigationState, route);
         break;
       default:
-        navAction = undefined;
+        nextState = undefined;
     }
 
-    if (!navAction) {
+    if (!nextState) {
       return;
     }
 
-    const nextState = NavigationStateUtils[navAction](currentNavigationState, route);
     if (nextState !== currentNavigationState) {
       this.props.updateNavigationState(nextState);
     }
@@ -65,6 +75,10 @@ export default class NavigatorApp extends Component {
 
   configureScene() {
     return Navigator.SceneConfigs.FloatFromBottom;
+  }
+
+  _onLabButtonPressed() {
+
   }
 
   _handleBack() {
@@ -101,7 +115,7 @@ export default class NavigatorApp extends Component {
     return (
       <NavigationHeader
         {...props}
-        onNavigateBack={() => this._handleBack()}
+        onNavigateBack={this._handleBack}
         renderTitleComponent={this._renderTitleComponent}
       />
     );
@@ -122,12 +136,21 @@ export default class NavigatorApp extends Component {
   render() {
     const { navigationState } = this.props;
     return (
-      <NavigationCardStack
-        navigationState={navigationState}
-        style={styles.container}
-        renderHeader={this._renderHeader}
-        renderScene={this._renderScene}
-      />
+      <View style={styles.navigator}>
+        <NavigationCardStack
+          onNavigateBack={this._handleBack}
+          navigationState={navigationState}
+          style={styles.container}
+          renderHeader={this._renderHeader}
+          renderScene={this._renderScene}
+          gestureResponseDistance={100}
+        />
+        <ActionButton buttonColor="rgba(231,76,60,1)">
+          <ActionButton.Item buttonColor="#9b59b6" title="New Task" onPress={this._onLabButtonPressed}>
+            <Icon name="md-create" style={styles.actionButtonIcon} />
+          </ActionButton.Item>
+        </ActionButton>
+      </View>
     );
   }
 }

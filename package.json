@@ -7,8 +7,12 @@
     "test": "jest"
   },
   "dependencies": {
-    "react": "15.3.2",
-    "react-native": "0.36.1",
+    "eslint-plugin-import": "^1.16.0",
+    "invariant": "^2.2.2",
+    "react": "^15.4.1",
+    "react-native": "^0.39.2",
+    "react-native-action-button": "^2.0.16",
+    "react-native-vector-icons": "^3.0.0",
     "react-redux": "^4.4.5",
     "redux": "^3.6.0"
   },
