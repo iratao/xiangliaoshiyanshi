@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { Navigator, StyleSheet, NavigationExperimental, View } from 'react-native';
-import ActionButton from 'react-native-action-button';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { StyleSheet, NavigationExperimental, View, Image } from 'react-native';
 
 import PostList from './postList';
 import Post from '../containers/post';
 import RouteKeys from '../constants/routeKeys';
+import LabButton from './labButton';
+import Lab from '../containers/lab';
 
 const {
   CardStack: NavigationCardStack,
@@ -15,6 +15,9 @@ const {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+  },
+  postList: {
     flex: 1,
   },
   navigator: {
@@ -35,7 +38,7 @@ export default class NavigatorApp extends Component {
     this._renderScene = this._renderScene.bind(this);
     this._renderTitleComponent = this._renderTitleComponent.bind(this);
     this._handleBack = this._handleBack.bind(this);
-    this.showItemPage = this.showItemPage.bind(this);
+    this._showItemPage = this._showItemPage.bind(this);
     this._onLabButtonPressed = this._onLabButtonPressed.bind(this);
   }
 
@@ -68,17 +71,13 @@ export default class NavigatorApp extends Component {
     }
   }
 
-  showItemPage(id) {
+  _showItemPage(id) {
     this.props.selectItem(id);
     this.updateNavigationState(RouteKeys.SPICE_DETAIL, 'push');
   }
 
-  configureScene() {
-    return Navigator.SceneConfigs.FloatFromBottom;
-  }
-
   _onLabButtonPressed() {
-
+    this.updateNavigationState(RouteKeys.LAB, 'push');
   }
 
   _handleBack() {
@@ -91,11 +90,16 @@ export default class NavigatorApp extends Component {
 
     if (scene.route.key === RouteKeys.HOME) {
       return (
-        <PostList
-          posts={posts}
-          getPosts={getPosts}
-          onItemPressed={this.showItemPage}
-        />
+        <View style={styles.postList}>
+          <PostList
+            posts={posts}
+            getPosts={getPosts}
+            onItemPressed={this._showItemPage}
+          />
+          <LabButton
+            onPressButton={this._onLabButtonPressed}
+          />
+        </View>
       );
     } else if (scene.route.key === RouteKeys.SPICE_DETAIL) {
       let post = posts.find(mpost => mpost.id === selectedItem);
@@ -106,6 +110,10 @@ export default class NavigatorApp extends Component {
           nameEN={post.nameEN}
           content={post.introduction}
         />
+      );
+    } else if (scene.route.key === RouteKeys.LAB) {
+      return (
+        <Lab />
       );
     }
     return null;
@@ -145,11 +153,6 @@ export default class NavigatorApp extends Component {
           renderScene={this._renderScene}
           gestureResponseDistance={100}
         />
-        <ActionButton buttonColor="rgba(231,76,60,1)">
-          <ActionButton.Item buttonColor="#9b59b6" title="New Task" onPress={this._onLabButtonPressed}>
-            <Icon name="md-create" style={styles.actionButtonIcon} />
-          </ActionButton.Item>
-        </ActionButton>
       </View>
     );
   }

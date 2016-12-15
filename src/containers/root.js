@@ -35,6 +35,7 @@ let store = createStore(rootReducers, {
       title: 'home',
     }],
   },
+  labSpices: [],
 });
 
 class Root extends Component {
