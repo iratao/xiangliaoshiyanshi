@@ -1,20 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, View, ListView, Image } from 'react-native';
+import { StyleSheet, View, ListView, Image, Text } from 'react-native';
+import LabListItem from './labListItem';
 
 const styles = StyleSheet.create({
   lab: {
     flex: 1,
-  },
-  cover: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    padding: 10,
-    backgroundColor: '#F6F6F6',
   },
 });
 
@@ -29,14 +19,18 @@ class Lab extends Component {
     this.listDataSource = this.listDataSource.cloneWithRows(nextProps.labSpices);
   }
 
+  _onDeleteItemPressed(index) {
+
+  }
+
   renderRow(rowData) {
     return (
-      <View style={styles.row}>
-        <Image
-          style={styles.cover}
-          source={{ uri: rowData.cover }}
-        />
-      </View>
+      <LabListItem
+        cover={rowData.cover}
+        name={rowData.name}
+        nameEN={rowData.nameEN}
+        onDeletePressed={this._onDeleteItemPressed}
+      />
     );
   }
 

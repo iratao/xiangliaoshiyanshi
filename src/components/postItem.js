@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, Text, View, Image, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
 const styles = StyleSheet.create({
   row: {
@@ -29,14 +29,14 @@ class PostItem extends Component {
   render() {
     let { id, coverURL, title, content } = this.props;
     return (
-      <TouchableHighlight onPress={() => this.onItemPressed()}>
+      <TouchableOpacity onPress={() => this.onItemPressed()}>
         <View style={styles.row}>
           <Image style={styles.thumb} source={{ uri: coverURL }} />
           <Text style={styles.text}>
             {title}
           </Text>
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
     );
   }
 }

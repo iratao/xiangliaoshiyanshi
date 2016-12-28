@@ -25,17 +25,55 @@ const styles = StyleSheet.create({
     fontWeight: '100',
     paddingBottom: 30,
   },
+  label: {
+    fontWeight: 'bold',
+    textAlign: 'right',
+    flex: 0.35,
+  },
+  labelContent: {
+    textAlign: 'left',
+    flex: 0.65,
+    paddingLeft: 10,
+  },
+  labelView: {
+    height: 20,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+  },
+  labelViewContainer: {
+    paddingTop: 30,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    flex: 0.3,
+    paddingRight: 10,
+  },
+  addToLabButton: {
+    paddingTop: 20,
+  },
 });
 
 class Post extends Component {
   render() {
-    let { coverURL, name, nameEN, content } = this.props;
+    let { coverURL, name, nameEN, genusSpecies, family, origin, cultivated } = this.props;
+    let genusSpeciesLabel = 'Genus Species';
+    let familyLabel = 'Family';
+    let originLabel = 'Origin';
+    let cultivatedLabel = 'Cultivated';
+
     return (
       <View style={styles.cover}>
         <Text style={styles.title}>{name}</Text>
         <Text style={styles.subtitle}>{nameEN}</Text>
         <Image style={styles.coverImage} source={{ uri: coverURL }} />
+        <View style={styles.labelViewContainer}>
+          <View style={styles.labelView}><Text style={styles.label}>{genusSpeciesLabel}:</Text><Text style={styles.labelContent}>{genusSpecies}</Text></View>
+          <View style={styles.labelView}><Text style={styles.label}>{familyLabel}:</Text><Text style={styles.labelContent}>{family}</Text></View>
+          <View style={styles.labelView}><Text style={styles.label}>{originLabel}:</Text><Text style={styles.labelContent}>{origin}</Text></View>
+        </View>
         <Button
+          style={styles.addToLabButton}
           onPress={() => this.props.addToLab([this.props.id])}
           title="Add To Lab"
           color="#841584"

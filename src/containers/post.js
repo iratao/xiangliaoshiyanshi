@@ -10,15 +10,21 @@ const mapStateToProps = (state) => {
     return {
       coverURL: selectedItem.coverThumbnail,
       title: selectedItem.name,
-      content: selectedItem.name,
       id: selectedItem.id,
+      genusSpecies: selectedItem.genusSpecies,
+      family: selectedItem.family,
+      origin: selectedItem.origin,
+      cultivated: selectedItem.cultivated,
     };
   }
   return {
     coverURL: undefined,
     title: undefined,
-    content: undefined,
     id: undefined,
+    genusSpecies: undefined,
+    family: undefined,
+    origin: undefined,
+    cultivated: undefined,
   };
 };
 
