@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-
+import { deleteLabSpice } from '../actions/deleteLabSpice';
 import Lab from '../components/lab';
 
 
@@ -16,7 +16,11 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    deleteLabSpice: (id) => {
+      dispatch(deleteLabSpice(id));
+    },
+  };
 };
 
 export default connect(

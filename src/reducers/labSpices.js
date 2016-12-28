@@ -7,6 +7,10 @@ function labSpices(state = [], action) {
         ...state,
         ...action.spices,
       ];
+    case Action.DELETE_LAB_SPICE: {
+      const targetID = action.id;
+      return state.filter(id => id !== targetID);
+    }
     default:
       return state;
   }

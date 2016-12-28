@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 
 class LabListItem extends Component {
   render() {
-    const { cover, name, nameEN, onDeletePressed } = this.props;
+    const { id, cover, name, nameEN, onDeletePressed } = this.props;
     return (
       <View style={styles.row}>
         <View style={styles.coverView}>
@@ -44,7 +44,7 @@ class LabListItem extends Component {
         </View>
         <View style={styles.deleteBtn}>
           <LabDeleteButtonImg
-            onPressButton={onDeletePressed}
+            onPressButton={() => onDeletePressed(id)}
           />
         </View>
       </View>

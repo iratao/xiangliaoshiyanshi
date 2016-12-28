@@ -19,17 +19,18 @@ class Lab extends Component {
     this.listDataSource = this.listDataSource.cloneWithRows(nextProps.labSpices);
   }
 
-  _onDeleteItemPressed(index) {
-
+  _onDeleteItemPressed(id) {
+    this.props.deleteLabSpice(id);
   }
 
   renderRow(rowData) {
     return (
       <LabListItem
+        id={rowData.id}
         cover={rowData.cover}
         name={rowData.name}
         nameEN={rowData.nameEN}
-        onDeletePressed={this._onDeleteItemPressed}
+        onDeletePressed={id => this._onDeleteItemPressed(id)}
       />
     );
   }
@@ -52,6 +53,7 @@ class Lab extends Component {
 
 Lab.propTypes = {
   labSpices: PropTypes.array.isRequired,
+  deleteLabSpice: PropTypes.func.isRequired,
 };
 
 export default Lab;
