@@ -27,13 +27,14 @@ const styles = StyleSheet.create({
   },
   label: {
     fontWeight: 'bold',
-    textAlign: 'right',
+    textAlign: 'left',
     flex: 0.35,
+    paddingLeft: 30,
   },
   labelContent: {
-    textAlign: 'left',
+    textAlign: 'right',
     flex: 0.65,
-    paddingLeft: 10,
+    paddingRight: 30,
   },
   labelView: {
     height: 20,
@@ -42,15 +43,11 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   labelViewContainer: {
-    paddingTop: 30,
+    paddingTop: 35,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     flex: 0.3,
-    paddingRight: 10,
-  },
-  addToLabButton: {
-    paddingTop: 20,
   },
 });
 
@@ -72,13 +69,6 @@ class Post extends Component {
           <View style={styles.labelView}><Text style={styles.label}>{familyLabel}:</Text><Text style={styles.labelContent}>{family}</Text></View>
           <View style={styles.labelView}><Text style={styles.label}>{originLabel}:</Text><Text style={styles.labelContent}>{origin}</Text></View>
         </View>
-        <Button
-          style={styles.addToLabButton}
-          onPress={() => this.props.addToLab([this.props.id])}
-          title="Add To Lab"
-          color="#841584"
-          accessibilityLabel="Learn more about this purple button"
-        />
       </View>
     );
   }

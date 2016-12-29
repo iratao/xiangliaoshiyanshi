@@ -8,7 +8,10 @@ const mapStateToProps = (state) => {
 
   if (selectedItem) {
     return {
+      name: selectedItem.name,
+      nameEN: selectedItem.nameEN,
       coverURL: selectedItem.coverThumbnail,
+      content: selectedItem.introduction,
       title: selectedItem.name,
       id: selectedItem.id,
       genusSpecies: selectedItem.genusSpecies,
@@ -18,6 +21,9 @@ const mapStateToProps = (state) => {
     };
   }
   return {
+    name: undefined,
+    nameEN: undefined,
+    content: undefined,
     coverURL: undefined,
     title: undefined,
     id: undefined,
@@ -30,8 +36,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addToLab: (ids) => {
-      dispatch(addSpicesToLab(ids));
+    addToLab: (id) => {
+      dispatch(addSpicesToLab(id));
     },
   };
 };

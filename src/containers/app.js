@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { fetchPostsSucceeded } from '../actions/fetchPosts';
 import { selectItem } from '../actions/selectItem';
 import updateNavigationState from '../actions/updateNavigationState';
+import { addSpicesToLab } from '../actions/addSpicesToLab';
 
 import NavigatorApp from '../components/navigator';
 
@@ -25,6 +26,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     updateNavigationState: (state) => {
       dispatch(updateNavigationState(state));
+    },
+    addToLab: (id) => {
+      dispatch(addSpicesToLab(id));
     },
   };
 };

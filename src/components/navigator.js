@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, NavigationExperimental, View, Image } from 'react-native';
+import { StyleSheet, NavigationExperimental, View, TouchableOpacity, Text } from 'react-native';
 
 import PostList from './postList';
 import Post from '../containers/post';
@@ -27,6 +27,18 @@ const styles = StyleSheet.create({
     fontSize: 20,
     height: 22,
     color: 'yellow',
+  },
+  addToLabButtonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  addToLabButton: {
+    fontSize: 14,
+    textAlign: 'center',
+    color: '#000000',
+    paddingRight: 10,
   },
 });
 
@@ -86,7 +98,7 @@ export default class NavigatorApp extends Component {
 
   _renderScene(props) {
     const scene = props.scene;
-    let { posts, getPosts, selectedItem } = this.props;
+    let { posts, getPosts } = this.props;
 
     if (scene.route.key === RouteKeys.HOME) {
       return (
@@ -102,14 +114,8 @@ export default class NavigatorApp extends Component {
         </View>
       );
     } else if (scene.route.key === RouteKeys.SPICE_DETAIL) {
-      let post = posts.find(mpost => mpost.id === selectedItem);
       return (
-        <Post
-          coverURL={post.cover}
-          name={post.name}
-          nameEN={post.nameEN}
-          content={post.introduction}
-        />
+        <Post />
       );
     } else if (scene.route.key === RouteKeys.LAB) {
       return (
@@ -125,8 +131,26 @@ export default class NavigatorApp extends Component {
         {...props}
         onNavigateBack={this._handleBack}
         renderTitleComponent={this._renderTitleComponent}
+        renderRightComponent={_props => this._renderRightComponent(_props)}
       />
     );
+  }
+
+  _renderRightComponent(props) {
+    let { posts, selectedItem, addToLab } = this.props;
+    let spice = posts.find(mpost => mpost.id === selectedItem);
+    const state = props.scene.route;
+    if (state.key === RouteKeys.SPICE_DETAIL) {
+      return (
+        <TouchableOpacity
+          style={styles.addToLabButtonContainer}
+          onPress={addToLab(spice.id)}
+        >
+          <Text style={styles.addToLabButton}>加入实验室</Text>
+        </TouchableOpacity>
+      );
+    }
+    return null;
   }
 
   _renderTitleComponent(props) {
@@ -160,6 +184,7 @@ export default class NavigatorApp extends Component {
 
 NavigatorApp.propTypes = {
   getPosts: PropTypes.func.isRequired,
+  addToLab: PropTypes.func.isRequired,
   selectedItem: PropTypes.number,
   posts: PropTypes.array.isRequired,
   selectItem: PropTypes.func.isRequired,
