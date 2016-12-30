@@ -107,7 +107,7 @@ class Post extends Component {
       <View>
         <ScrollView
           contentContainerStyle={styles.scrollView}
-          pagingEnabled={false}
+          pagingEnabled={true}
           onScroll={Animated.event(
             // scrollX = e.nativeEvent.contentOffset.x
             [{ nativeEvent: { contentOffset: { y: this.scrollY }}}]
