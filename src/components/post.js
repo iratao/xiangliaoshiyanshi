@@ -6,8 +6,11 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 const NAVBAR_HEIGHT = Platform.OS === 'ios'? 64 : 54;
 
 const styles = StyleSheet.create({
+  scrollView: {
+
+  },
   home: {
-    flex: 1,
+    marginTop: 440,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -15,6 +18,8 @@ const styles = StyleSheet.create({
     height: SCREEN_HEIGHT - NAVBAR_HEIGHT - 440,
   },
   header: {
+    position: 'absolute',
+    width: SCREEN_WIDTH,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
