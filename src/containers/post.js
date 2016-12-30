@@ -11,19 +11,20 @@ const mapStateToProps = (state) => {
       name: selectedItem.name,
       nameEN: selectedItem.nameEN,
       coverURL: selectedItem.coverThumbnail,
-      content: selectedItem.introduction,
       title: selectedItem.name,
       id: selectedItem.id,
       genusSpecies: selectedItem.genusSpecies,
       family: selectedItem.family,
       origin: selectedItem.origin,
       cultivated: selectedItem.cultivated,
+      content: selectedItem.introduction,
+      usefulParts: selectedItem.usefulParts,
+      medicalProperties: selectedItem.medicalProperties,
     };
   }
   return {
     name: undefined,
     nameEN: undefined,
-    content: undefined,
     coverURL: undefined,
     title: undefined,
     id: undefined,
@@ -31,6 +32,9 @@ const mapStateToProps = (state) => {
     family: undefined,
     origin: undefined,
     cultivated: undefined,
+    content: undefined,
+    usefulParts: undefined,
+    medicalProperties: undefined,
   };
 };
 
