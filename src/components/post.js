@@ -133,6 +133,11 @@ class Post extends Component {
       outputRange: [400, 400, 400 * 0.4 - 20, 400 * 0.4 - 20],
     });
 
+    let animatePaddingTop = this.scrollY.interpolate({
+      inputRange: [-9999, 150, 9999],
+      outputRange: [0, 140, 140],
+    });
+
     return (
       <View>
         <ScrollView
@@ -147,7 +152,7 @@ class Post extends Component {
           <Animated.View
             style={[styles.header, { top: this.scrollY, height: animatedHeaderHeight }]}
           >
-            <Animated.View style={styles.cover}>
+            <Animated.View style={[styles.cover]}>
               <Animated.Text style={[styles.title, { fontSize: titleFontSizeAnim }]}>{name}</Animated.Text>
               <Animated.Text style={[styles.subtitle, { fontSize: subtitleFontSizeAnim }]}>{nameEN}</Animated.Text>
             </Animated.View>
@@ -173,14 +178,14 @@ class Post extends Component {
               <View style={styles.labelView}><Text style={styles.label}>{originLabel}:</Text><Text style={styles.labelContent}>{origin}</Text></View>
             </View>
           </View>
-          <View style={styles.page}>
+          <Animated.View style={[styles.page, { paddingTop: animatePaddingTop }]}>
             <Text>{'INTRODUCTION'}</Text>
             <Text>{content}</Text>
-          </View>
-          <View style={styles.page}>
+          </Animated.View>
+          <Animated.View style={[styles.page, { paddingTop: animatePaddingTop }]}>
             <Text>{'MEDICAL PROPERTIES'}</Text>
             <Text>{medicalProperties}</Text>
-          </View>
+          </Animated.View>
         </ScrollView>
       </View>
     );
