@@ -7,7 +7,7 @@ const NAVBAR_HEIGHT = Platform.OS === 'ios'? 64 : 54;
 
 const styles = StyleSheet.create({
   scrollView: {
-
+    backgroundColor: '#FDFEFE',
   },
   home: {
     marginTop: 440,
@@ -20,11 +20,8 @@ const styles = StyleSheet.create({
   header: {
     position: 'absolute',
     width: SCREEN_WIDTH,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
     backgroundColor: '#FDFEFE',
-    height: 440,
+    zIndex: 200,
   },
   cover: {
     position: 'absolute',
@@ -45,11 +42,9 @@ const styles = StyleSheet.create({
   title: {
     paddingTop: 20,
     paddingBottom: 8,
-    fontSize: 36,
     fontWeight: '100',
   },
   subtitle: {
-    fontSize: 20,
     fontWeight: '100',
     paddingBottom: 30,
   },
@@ -108,6 +103,36 @@ class Post extends Component {
     let originLabel = 'Origin';
     let cultivatedLabel = 'Cultivated';
 
+    let topOffset = this.scrollY.interpolate({
+      inputRange: [-9999, 0, 150, 9999],
+      outputRange: [130, 130, -65, -65],
+    });
+
+    let leftOffset = this.scrollY.interpolate({
+      inputRange: [-9999, 0, 150, 9999],
+      outputRange: [SCREEN_WIDTH / 2 - 132, SCREEN_WIDTH / 2 - 132, -50, -50],
+    });
+
+    let scaleAnim = this.scrollY.interpolate({
+      inputRange: [-9999, 0, 150, 9999],
+      outputRange: [1, 1, 0.4, 0.4],
+    });
+
+    let titleFontSizeAnim = this.scrollY.interpolate({
+      inputRange: [-9999, 0, 150, 9999],
+      outputRange: [36, 36, 24, 24],
+    });
+
+    let subtitleFontSizeAnim = this.scrollY.interpolate({
+      inputRange: [-9999, 0, 150, 9999],
+      outputRange: [20, 20, 14, 14],
+    });
+
+    let animatedHeaderHeight = this.scrollY.interpolate({
+      inputRange: [-9999, 0, 150, 9999],
+      outputRange: [400, 400, 400 * 0.4 - 20, 400 * 0.4 - 20],
+    });
+
     return (
       <View>
         <ScrollView
@@ -119,29 +144,28 @@ class Post extends Component {
           )}
           scrollEventThrottle={10}
         >
-          <View style={styles.header}>
-            <View style={styles.cover}>
-              <Text style={styles.title}>{name}</Text>
-              <Text style={styles.subtitle}>{nameEN}</Text>
-            </View>
+          <Animated.View
+            style={[styles.header, { top: this.scrollY, height: animatedHeaderHeight }]}
+          >
+            <Animated.View style={styles.cover}>
+              <Animated.Text style={[styles.title, { fontSize: titleFontSizeAnim }]}>{name}</Animated.Text>
+              <Animated.Text style={[styles.subtitle, { fontSize: subtitleFontSizeAnim }]}>{nameEN}</Animated.Text>
+            </Animated.View>
             <Animated.Image
               style={{
                 position: 'absolute',
-                top: 130,
-                left: SCREEN_WIDTH / 2 - 132,
+                top: topOffset,
+                left: leftOffset,
                 width: 264,
                 height: 264,
                 borderRadius: 132,
                 transform: [{
-                  scale: this.scrollY.interpolate({
-                    inputRange: [-9999, 0, 100, 9999],
-                    outputRange: [1, 1, 0.4, 0.4],
-                  }),
+                  scale: scaleAnim,
                 }],
               }}
               source={{ uri: coverURL }}
             />
-          </View>
+          </Animated.View>
           <View style={styles.home}>
             <View style={styles.labelViewContainer}>
               <View style={styles.labelView}><Text style={styles.label}>{genusSpeciesLabel}:</Text><Text style={styles.labelContent}>{genusSpecies}</Text></View>
