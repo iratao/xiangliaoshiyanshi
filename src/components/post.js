@@ -1,21 +1,27 @@
 import React, { Component, PropTypes } from 'react';
 import { StyleSheet, Text, View, Animated, Easing, Image, Button, ScrollView, Dimensions, Platform } from 'react-native';
 
+const HOME_HEIGHT = 150;
+const HEADER_COVER_WIDTH = 264;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const NAVBAR_HEIGHT = Platform.OS === 'ios'? 64 : 54;
+const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 130 : 143;
+const HEADER_MAX_HEIGHT = SCREEN_HEIGHT - NAVBAR_HEIGHT - HOME_HEIGHT;
+const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
+
 
 const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: '#FDFEFE',
   },
   home: {
-    marginTop: 440,
+    marginTop: HEADER_MAX_HEIGHT,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#FDFEFE',
-    height: SCREEN_HEIGHT - NAVBAR_HEIGHT - 440,
+    height: HOME_HEIGHT,
   },
   header: {
     position: 'absolute',
@@ -77,65 +83,57 @@ const styles = StyleSheet.create({
 class Post extends Component {
   constructor() {
     super();
-    this.scaleValue = new Animated.Value(1);
     this.scrollY = new Animated.Value(0);
   }
   componentDidMount() {
-    // this.scale();
-  }
-
-  scale() {
-    this.scaleValue.setValue(1);
-    Animated.timing(
-      this.scaleValue,
-      {
-        toValue: 0.4,
-        duration: 4000,
-        easing: Easing.linear,
-      }
-    ).start();
   }
 
   render() {
-    let { coverURL, name, nameEN, genusSpecies, family, origin, cultivated, content, usefulParts, medicalProperties } = this.props;
+    let { coverURL, name, nameEN, genusSpecies, family, origin, content, medicalProperties } = this.props;
     let genusSpeciesLabel = 'Genus Species';
     let familyLabel = 'Family';
     let originLabel = 'Origin';
-    let cultivatedLabel = 'Cultivated';
 
     let topOffset = this.scrollY.interpolate({
-      inputRange: [-9999, 0, 150, 9999],
-      outputRange: [130, 130, -65, -65],
+      inputRange: [0, HEADER_SCROLL_DISTANCE],
+      outputRange: [130, -65],
+      extrapolate: 'clamp',
     });
 
     let leftOffset = this.scrollY.interpolate({
-      inputRange: [-9999, 0, 150, 9999],
-      outputRange: [SCREEN_WIDTH / 2 - 132, SCREEN_WIDTH / 2 - 132, -50, -50],
+      inputRange: [0, HEADER_SCROLL_DISTANCE],
+      outputRange: [SCREEN_WIDTH / 2 - 132, -50],
+      extrapolate: 'clamp',
     });
 
     let scaleAnim = this.scrollY.interpolate({
-      inputRange: [-9999, 0, 150, 9999],
-      outputRange: [1, 1, 0.4, 0.4],
+      inputRange: [0, HEADER_SCROLL_DISTANCE],
+      outputRange: [1, 0.4],
+      extrapolate: 'clamp',
     });
 
     let titleFontSizeAnim = this.scrollY.interpolate({
-      inputRange: [-9999, 0, 150, 9999],
-      outputRange: [36, 36, 24, 24],
+      inputRange: [0, HEADER_SCROLL_DISTANCE],
+      outputRange: [36, 24],
+      extrapolate: 'clamp',
     });
 
     let subtitleFontSizeAnim = this.scrollY.interpolate({
-      inputRange: [-9999, 0, 150, 9999],
-      outputRange: [20, 20, 14, 14],
+      inputRange: [0, HEADER_SCROLL_DISTANCE],
+      outputRange: [20, 14],
+      extrapolate: 'clamp',
     });
 
     let animatedHeaderHeight = this.scrollY.interpolate({
-      inputRange: [-9999, 0, 150, 9999],
-      outputRange: [400, 400, 400 * 0.4 - 20, 400 * 0.4 - 20],
+      inputRange: [0, HEADER_SCROLL_DISTANCE],
+      outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
+      extrapolate: 'clamp',
     });
 
     let animatePaddingTop = this.scrollY.interpolate({
-      inputRange: [-9999, 150, 9999],
-      outputRange: [0, 140, 140],
+      inputRange: [0, HEADER_SCROLL_DISTANCE],
+      outputRange: [0, HEADER_MIN_HEIGHT],
+      extrapolate: 'clamp',
     });
 
     return (
@@ -147,10 +145,14 @@ class Post extends Component {
             // scrollX = e.nativeEvent.contentOffset.x
             [{ nativeEvent: { contentOffset: { y: this.scrollY }}}]
           )}
-          scrollEventThrottle={10}
+          scrollEventThrottle={16}
+          stickyHeaderIndices={[0]}
+          showsVerticalScrollIndicator={false}
+          endFillColor={'#ffffff'}
+          bounces={false}
         >
           <Animated.View
-            style={[styles.header, { top: this.scrollY, height: animatedHeaderHeight }]}
+            style={[styles.header, { height: animatedHeaderHeight }]}
           >
             <Animated.View style={[styles.cover]}>
               <Animated.Text style={[styles.title, { fontSize: titleFontSizeAnim }]}>{name}</Animated.Text>
@@ -161,9 +163,9 @@ class Post extends Component {
                 position: 'absolute',
                 top: topOffset,
                 left: leftOffset,
-                width: 264,
-                height: 264,
-                borderRadius: 132,
+                width: HEADER_COVER_WIDTH,
+                height: HEADER_COVER_WIDTH,
+                borderRadius: HEADER_COVER_WIDTH / 2,
                 transform: [{
                   scale: scaleAnim,
                 }],
