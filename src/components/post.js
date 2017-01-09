@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: SCREEN_WIDTH,
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
   },
   page: {
     backgroundColor: '#FDFEFE',
@@ -85,7 +85,28 @@ class Post extends Component {
     super();
     this.scrollY = new Animated.Value(0);
   }
+
+  componentWillMount() {
+    this.props.clearPostView();
+  }
+
   componentDidMount() {
+  }
+
+  onTitleLayout(event) {
+    if (this.props.postview.initialTitleLeft === 0) {
+      this.props.updatePostTitle({
+        initialTitleLeft: (SCREEN_WIDTH - event.nativeEvent.layout.width) / 2,
+      });
+    }
+  }
+
+  onSubtitleLayout(event) {
+    if (this.props.postview.initialSubtitleLeft === 0) {
+      this.props.updatePostSubtitle({
+        initialSubtitleLeft: (SCREEN_WIDTH - event.nativeEvent.layout.width) / 2,
+      });
+    }
   }
 
   render() {
@@ -136,6 +157,18 @@ class Post extends Component {
       extrapolate: 'clamp',
     });
 
+    let titleLeftAnim = this.scrollY.interpolate({
+      inputRange: [0, HEADER_SCROLL_DISTANCE],
+      outputRange: [this.props.postview.initialTitleLeft, 150],
+      extrapolate: 'clamp',
+    });
+
+    let subtitleLeftAnim = this.scrollY.interpolate({
+      inputRange: [0, HEADER_SCROLL_DISTANCE],
+      outputRange: [this.props.postview.initialSubtitleLeft, 150],
+      extrapolate: 'clamp',
+    });
+
     return (
       <View>
         <ScrollView
@@ -155,8 +188,20 @@ class Post extends Component {
             style={[styles.header, { height: animatedHeaderHeight }]}
           >
             <Animated.View style={[styles.cover]}>
-              <Animated.Text style={[styles.title, { fontSize: titleFontSizeAnim }]}>{name}</Animated.Text>
-              <Animated.Text style={[styles.subtitle, { fontSize: subtitleFontSizeAnim }]}>{nameEN}</Animated.Text>
+              <Animated.Text
+                ref={(c) => this.title = c}
+                style={[styles.title, { fontSize: titleFontSizeAnim, left: titleLeftAnim }]}
+                onLayout={event => this.onTitleLayout(event)}
+              >
+                {name}
+              </Animated.Text>
+              <Animated.Text
+                ref={(c) => this.subtitle = c}
+                style={[styles.subtitle, { fontSize: subtitleFontSizeAnim, left: subtitleLeftAnim }]}
+                onLayout={event => this.onSubtitleLayout(event)}
+              >
+                {nameEN}
+              </Animated.Text>
             </Animated.View>
             <Animated.Image
               style={{
@@ -207,6 +252,10 @@ Post.propTypes = {
   usefulParts: PropTypes.string,
   medicalProperties: PropTypes.string,
   addToLab: PropTypes.func.isRequired,
+  postview: PropTypes.object.isRequired,
+  updatePostTitle: PropTypes.func.isRequired,
+  updatePostSubtitle: PropTypes.func.isRequired,
+  clearPostView: PropTypes.func.isRequired,
 };
 
 export default Post;

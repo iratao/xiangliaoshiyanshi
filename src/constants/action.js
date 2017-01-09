@@ -4,6 +4,9 @@ const Action = {
   ADD_SPICES_TO_LAB: 3,
   DELETE_LAB_SPICE: 4,
   UPDATE_NAVIGATION_STATE: 5,
+  UPDATE_POST_TITLE: 6,
+  UPDATE_POST_SUBTITLE: 7,
+  CLEAR_POST_VIEW: 8,
 };
 
 Object.freeze(Action);

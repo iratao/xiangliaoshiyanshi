@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import Post from '../components/post';
 import { addSpicesToLab } from '../actions/addSpicesToLab';
+import { updatePostTitle, updatePostSubtitle, clearPostView } from '../actions/updateView';
 
 
 const mapStateToProps = (state) => {
@@ -20,6 +21,7 @@ const mapStateToProps = (state) => {
       content: selectedItem.introduction,
       usefulParts: selectedItem.usefulParts,
       medicalProperties: selectedItem.medicalProperties,
+      postview: state.postview,
     };
   }
   return {
@@ -35,6 +37,7 @@ const mapStateToProps = (state) => {
     content: undefined,
     usefulParts: undefined,
     medicalProperties: undefined,
+    postview: undefined,
   };
 };
 
@@ -43,6 +46,15 @@ const mapDispatchToProps = (dispatch) => {
     addToLab: (id) => {
       dispatch(addSpicesToLab(id));
     },
+    updatePostTitle: (title) => {
+      dispatch(updatePostTitle(title));
+    },
+    updatePostSubtitle: (subtitle) => {
+      dispatch(updatePostSubtitle(subtitle));
+    },
+    clearPostView: () => {
+      dispatch(clearPostView());
+    }
   };
 };
 

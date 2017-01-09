@@ -144,7 +144,7 @@ export default class NavigatorApp extends Component {
       return (
         <TouchableOpacity
           style={styles.addToLabButtonContainer}
-          onPress={addToLab(spice.id)}
+          onPress={() => addToLab(spice.id)}
         >
           <Text style={styles.addToLabButton}>加入实验室</Text>
         </TouchableOpacity>

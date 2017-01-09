@@ -3,6 +3,7 @@ import { fetchPostsSucceeded } from '../actions/fetchPosts';
 import { selectItem } from '../actions/selectItem';
 import updateNavigationState from '../actions/updateNavigationState';
 import { addSpicesToLab } from '../actions/addSpicesToLab';
+import { clearPostView } from '../actions/updateView';
 
 import NavigatorApp from '../components/navigator';
 
