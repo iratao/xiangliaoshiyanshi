@@ -46,12 +46,14 @@ const styles = StyleSheet.create({
     borderRadius: 132,
   },
   title: {
+    fontFamily: 'PingFang SC',
     paddingTop: 20,
     paddingBottom: 8,
-    fontWeight: '100',
+    fontWeight: '300',
   },
   subtitle: {
-    fontWeight: '100',
+    fontFamily: 'Helvetica Neue',
+    fontWeight: '200',
     paddingBottom: 30,
   },
   label: {
@@ -110,7 +112,7 @@ class Post extends Component {
   }
 
   render() {
-    let { coverURL, name, nameEN, genusSpecies, family, origin, content, medicalProperties } = this.props;
+    let { coverThumbnail, name, nameEN, genusSpecies, family, origin, introduction, medicalProperties, storageandchoice } = this.props.selectedItem;
     let genusSpeciesLabel = 'Genus Species';
     let familyLabel = 'Family';
     let originLabel = 'Origin';
@@ -159,13 +161,13 @@ class Post extends Component {
 
     let titleLeftAnim = this.scrollY.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE],
-      outputRange: [this.props.postview.initialTitleLeft, 150],
+      outputRange: [this.props.postview.initialTitleLeft, 160],
       extrapolate: 'clamp',
     });
 
     let subtitleLeftAnim = this.scrollY.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE],
-      outputRange: [this.props.postview.initialSubtitleLeft, 150],
+      outputRange: [this.props.postview.initialSubtitleLeft, 160],
       extrapolate: 'clamp',
     });
 
@@ -215,7 +217,7 @@ class Post extends Component {
                   scale: scaleAnim,
                 }],
               }}
-              source={{ uri: coverURL }}
+              source={{ uri: coverThumbnail }}
             />
           </Animated.View>
           <View style={styles.home}>
@@ -227,11 +229,15 @@ class Post extends Component {
           </View>
           <Animated.View style={[styles.page, { paddingTop: animatePaddingTop }]}>
             <Text>{'INTRODUCTION'}</Text>
-            <Text>{content}</Text>
+            <Text>{introduction}</Text>
           </Animated.View>
           <Animated.View style={[styles.page, { paddingTop: animatePaddingTop }]}>
-            <Text>{'MEDICAL PROPERTIES'}</Text>
+            <Text>{'医用价值'}</Text>
             <Text>{medicalProperties}</Text>
+          </Animated.View>
+          <Animated.View style={[styles.page, { paddingTop: animatePaddingTop }]}>
+            <Text>{'储存与选购'}</Text>
+            <Text>{storageandchoice}</Text>
           </Animated.View>
         </ScrollView>
       </View>
@@ -240,17 +246,7 @@ class Post extends Component {
 }
 
 Post.propTypes = {
-  id: PropTypes.number.isRequired,
-  coverURL: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  nameEN: PropTypes.string.isRequired,
-  genusSpecies: PropTypes.string,
-  family: PropTypes.string,
-  origin: PropTypes.string,
-  cultivated: PropTypes.string,
-  content: PropTypes.string.isRequired,
-  usefulParts: PropTypes.string,
-  medicalProperties: PropTypes.string,
+  selectedItem: PropTypes.object.isRequired,
   addToLab: PropTypes.func.isRequired,
   postview: PropTypes.object.isRequired,
   updatePostTitle: PropTypes.func.isRequired,

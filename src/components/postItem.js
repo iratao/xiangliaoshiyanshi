@@ -5,19 +5,21 @@ const styles = StyleSheet.create({
   row: {
     justifyContent: 'center',
     margin: 3,
-    width: 100,
-    height: 100,
+    width: 105,
+    height: 115,
     alignItems: 'center',
   },
   thumb: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+    width: 90,
+    height: 90,
+    borderRadius: 45,
   },
   text: {
     flex: 1,
-    marginTop: 5,
-    fontWeight: 'bold',
+    marginTop: 3,
+    fontWeight: 'normal',
+    fontFamily: 'PingFang SC',
+    fontSize: 12,
   },
 });
 

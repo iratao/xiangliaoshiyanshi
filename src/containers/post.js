@@ -9,34 +9,12 @@ const mapStateToProps = (state) => {
 
   if (selectedItem) {
     return {
-      name: selectedItem.name,
-      nameEN: selectedItem.nameEN,
-      coverURL: selectedItem.coverThumbnail,
-      title: selectedItem.name,
-      id: selectedItem.id,
-      genusSpecies: selectedItem.genusSpecies,
-      family: selectedItem.family,
-      origin: selectedItem.origin,
-      cultivated: selectedItem.cultivated,
-      content: selectedItem.introduction,
-      usefulParts: selectedItem.usefulParts,
-      medicalProperties: selectedItem.medicalProperties,
+      selectedItem,
       postview: state.postview,
     };
   }
   return {
-    name: undefined,
-    nameEN: undefined,
-    coverURL: undefined,
-    title: undefined,
-    id: undefined,
-    genusSpecies: undefined,
-    family: undefined,
-    origin: undefined,
-    cultivated: undefined,
-    content: undefined,
-    usefulParts: undefined,
-    medicalProperties: undefined,
+    selectedItem: undefined,
     postview: undefined,
   };
 };

@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'flex-start',
     backgroundColor: '#FDFEFE',
+    paddingTop: 10,
   },
 });
 

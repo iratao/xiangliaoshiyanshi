@@ -17,6 +17,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  header: {
+    backgroundColor: '#FFFFFF',
+    borderBottomColor: '#FFFFFF',
+  },
+  titleText: {
+    fontSize: 18,
+    fontFamily:  'PingFang SC',
+    fontWeight: 'normal',
+  },
   postList: {
     flex: 1,
   },
@@ -129,6 +138,7 @@ export default class NavigatorApp extends Component {
     return (
       <NavigationHeader
         {...props}
+        style={styles.header}
         onNavigateBack={this._handleBack}
         renderTitleComponent={this._renderTitleComponent}
         renderRightComponent={_props => this._renderRightComponent(_props)}
@@ -157,7 +167,9 @@ export default class NavigatorApp extends Component {
     const state = props.scene.route;
     if (state.key === RouteKeys.HOME) {
       return (
-        <NavigationHeader.Title>
+        <NavigationHeader.Title 
+          textStyle={styles.titleText}
+        >
           {'香料实验室'}
         </NavigationHeader.Title>
       );
