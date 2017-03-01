@@ -9,7 +9,7 @@ const NAVBAR_HEIGHT = Platform.OS === 'ios'? 64 : 54;
 const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 130 : 143;
 const HEADER_MAX_HEIGHT = SCREEN_HEIGHT - NAVBAR_HEIGHT - HOME_HEIGHT;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
-
+const PAGE_CONTENT_PADDING_TOP = 25;
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -39,6 +39,8 @@ const styles = StyleSheet.create({
   page: {
     backgroundColor: '#FDFEFE',
     height: SCREEN_HEIGHT - NAVBAR_HEIGHT,
+    paddingLeft: 30,
+    paddingRight: 30,
   },
   coverImage: {
     width: 264,
@@ -155,7 +157,7 @@ class Post extends Component {
 
     let animatePaddingTop = this.scrollY.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE],
-      outputRange: [0, HEADER_MIN_HEIGHT],
+      outputRange: [0, HEADER_MIN_HEIGHT + PAGE_CONTENT_PADDING_TOP],
       extrapolate: 'clamp',
     });
 
