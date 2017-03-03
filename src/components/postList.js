@@ -46,7 +46,7 @@ class PostList extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: '#FDFEFE' }}>
         <ListView
           contentContainerStyle={styles.list}
           dataSource={this.listDataSource}
@@ -54,6 +54,9 @@ class PostList extends Component {
           pageSize={3}
           scrollRenderAheadDistance={500}
           renderRow={(rowData) => this.renderRow(rowData)}
+          showsVerticalScrollIndicator={false}
+          endFillColor={'#FDFEFE'}
+          bounces={false}
         />
       </View>
     );

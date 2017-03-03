@@ -36,11 +36,28 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
   },
+  lineStyle: {
+    height: 1,
+    backgroundColor: '#FFCD0D',
+    marginTop: 6,
+    marginBottom: 15,
+    width: 200.85,
+  },
   page: {
     backgroundColor: '#FDFEFE',
     height: SCREEN_HEIGHT - NAVBAR_HEIGHT,
     paddingLeft: 30,
     paddingRight: 30,
+  },
+  pageContentTitle: {
+    fontFamily: 'PingFang SC',
+    fontSize: 20,
+    fontWeight: '300',
+  },
+  pageContentBody: {
+    fontFamily: 'PingFang SC',
+    fontSize: 16,
+    fontWeight: '100',
   },
   coverImage: {
     width: 264,
@@ -59,10 +76,12 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
   },
   label: {
-    fontWeight: 'bold',
+    fontWeight: '300',
     textAlign: 'left',
     flex: 0.35,
     paddingLeft: 30,
+    fontFamily: 'PingFang SC',
+    fontSize: 16,
   },
   labelContent: {
     textAlign: 'right',
@@ -115,9 +134,9 @@ class Post extends Component {
 
   render() {
     let { coverThumbnail, name, nameEN, genusSpecies, family, origin, introduction, medicalProperties, storageandchoice } = this.props.selectedItem;
-    let genusSpeciesLabel = 'Genus Species';
-    let familyLabel = 'Family';
-    let originLabel = 'Origin';
+    let genusSpeciesLabel = '种类';
+    let familyLabel = '科';
+    let originLabel = '原产地';
 
     let topOffset = this.scrollY.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE],
@@ -230,16 +249,19 @@ class Post extends Component {
             </View>
           </View>
           <Animated.View style={[styles.page, { paddingTop: animatePaddingTop }]}>
-            <Text>{'INTRODUCTION'}</Text>
-            <Text>{introduction}</Text>
+            <Text style={styles.pageContentTitle}>{'介绍'}</Text>
+            <View style={styles.lineStyle} />
+            <Text style={styles.pageContentBody}>{introduction}</Text>
           </Animated.View>
           <Animated.View style={[styles.page, { paddingTop: animatePaddingTop }]}>
-            <Text>{'医用价值'}</Text>
-            <Text>{medicalProperties}</Text>
+            <Text style={styles.pageContentTitle}>{'医用价值'}</Text>
+            <View style={styles.lineStyle} />
+            <Text style={styles.pageContentBody}>{medicalProperties}</Text>
           </Animated.View>
           <Animated.View style={[styles.page, { paddingTop: animatePaddingTop }]}>
-            <Text>{'储存与选购'}</Text>
-            <Text>{storageandchoice}</Text>
+            <Text style={styles.pageContentTitle}>{'储存与选购'}</Text>
+            <View style={styles.lineStyle} />
+            <Text style={styles.pageContentBody}>{storageandchoice}</Text>
           </Animated.View>
         </ScrollView>
       </View>

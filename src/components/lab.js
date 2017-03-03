@@ -23,7 +23,7 @@ class Lab extends Component {
     this.props.deleteLabSpice(id);
   }
 
-  renderRow(rowData) {
+  renderRow(rowData, sectionID, rowID) {
     return (
       <LabListItem
         id={rowData.id}
@@ -31,6 +31,7 @@ class Lab extends Component {
         name={rowData.name}
         nameEN={rowData.nameEN}
         onDeletePressed={id => this._onDeleteItemPressed(id)}
+        needUnderline={parseInt(rowID) === this.props.labSpices.length - 1 ? false : true}
       />
     );
   }
@@ -44,7 +45,11 @@ class Lab extends Component {
           initialListSize={21}
           pageSize={3}
           scrollRenderAheadDistance={500}
-          renderRow={(rowData) => this.renderRow(rowData)}
+          renderRow={(rowData, sectionID, rowID) => this.renderRow(rowData, sectionID, rowID)}
+          showsVerticalScrollIndicator={false}
+          endFillColor={'#FDFEFE'}
+          bounces={false}
+          backgroundColor={'#FDFEFE'}
         />
       </View>
     );

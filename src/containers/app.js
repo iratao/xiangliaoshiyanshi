@@ -9,11 +9,18 @@ import NavigatorApp from '../components/navigator';
 
 
 const mapStateToProps = (state) => {
+  let labSpices = [];
+  if (state.labSpices && state.labSpices.length > 0) {
+    labSpices = state.labSpices.map(spiceId =>
+      state.posts.find(post => post.id === spiceId)
+    );
+  }
   return {
     posts: state.posts,
     selectedItem: state.selectedItem,
     navigationState: state.navigationState,
     routes: state.routes,
+    labSpices,
   };
 };
 

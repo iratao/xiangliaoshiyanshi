@@ -1,11 +1,15 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, NavigationExperimental, View, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, NavigationExperimental, View, TouchableOpacity, Text, Image } from 'react-native';
 
 import PostList from './postList';
 import Post from '../containers/post';
 import RouteKeys from '../constants/routeKeys';
 import LabButton from './labButton';
 import Lab from '../containers/lab';
+import NavBackButton from './backButton';
+
+import LabBottleInactiveImage from '../res/images/labbottle_inactive.png';
+import LabBottleActiveImage from '../res/images/labbottle_active.png'
 
 const {
   CardStack: NavigationCardStack,
@@ -16,6 +20,11 @@ const {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  headerLabIcon: {
+    width: 17,
+    height: 24,
+    marginRight: 9,
   },
   header: {
     backgroundColor: '#FFFFFF',
@@ -142,13 +151,32 @@ export default class NavigatorApp extends Component {
         onNavigateBack={this._handleBack}
         renderTitleComponent={this._renderTitleComponent}
         renderRightComponent={_props => this._renderRightComponent(_props)}
+        renderLeftComponent={_props => this._renderLeftComponent(_props)}
       />
     );
+  }
+
+  _renderLeftComponent(props) {
+    if (props.scene.index === 0 || !props.onNavigateBack) {
+      return null;
+    }
+    return (
+      <NavBackButton
+        onPress={props.onNavigateBack}
+      />
+    );
+  }
+
+  _isItemInLab(itemid) {
+    let { labSpices } = this.props;
+    let spice = labSpices.find(mpost => mpost.id === itemid);
+    return spice ? true : false;
   }
 
   _renderRightComponent(props) {
     let { posts, selectedItem, addToLab } = this.props;
     let spice = posts.find(mpost => mpost.id === selectedItem);
+    let isItemInLab = this._isItemInLab(selectedItem);
     const state = props.scene.route;
     if (state.key === RouteKeys.SPICE_DETAIL) {
       return (
@@ -156,7 +184,8 @@ export default class NavigatorApp extends Component {
           style={styles.addToLabButtonContainer}
           onPress={() => addToLab(spice.id)}
         >
-          <Text style={styles.addToLabButton}>加入实验室</Text>
+          <Image style={styles.headerLabIcon} source={ isItemInLab ? LabBottleActiveImage : LabBottleInactiveImage} />
+          <Text style={styles.addToLabButton}>{ isItemInLab ? '已加入' : '加入实验室'}</Text>
         </TouchableOpacity>
       );
     }
@@ -203,4 +232,5 @@ NavigatorApp.propTypes = {
   navigationState: PropTypes.object.isRequired,
   routes: PropTypes.object.isRequired,
   updateNavigationState: PropTypes.func.isRequired,
+  labSpices: PropTypes.array.isRequired,
 };

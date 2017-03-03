@@ -4,49 +4,60 @@ import LabDeleteButtonImg from './labDeleteButtonImg';
 
 const styles = StyleSheet.create({
   cover: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
+    width: 80,
+    height: 80,
+    borderRadius: 40,
   },
   coverView: {
-    flex: 0.2,
+    paddingLeft: 31,
   },
   row: {
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10,
-    backgroundColor: '#F6F6F6',
+    backgroundColor: '#FDFEFE',
+    paddingBottom: 12,
+    paddingTop: 16,
   },
   name: {
-    flex: 0.7,
-    paddingLeft: 10,
+    paddingLeft: 24,
+    flex: 0.6,
   },
   deleteBtn: {
-    flex: 0.1,
+    paddingRight: 41,
+  },
+  lineStyle: {
+    height: 1,
+    backgroundColor: '#FFCD0D',
+    marginLeft: 30,
+    marginRight: 30,
   },
 });
 
 class LabListItem extends Component {
   render() {
-    const { id, cover, name, nameEN, onDeletePressed } = this.props;
+    const { id, cover, name, nameEN, onDeletePressed, needUnderline } = this.props;
     return (
-      <View style={styles.row}>
-        <View style={styles.coverView}>
-          <Image
-            style={styles.cover}
-            source={{ uri: cover }}
-          />
+      <View>
+        <View style={styles.row}>
+          <View style={styles.coverView}>
+            <Image
+              style={styles.cover}
+              source={{ uri: cover }}
+            />
+          </View>
+          <View style={styles.name}>
+            <Text>{name}</Text>
+            <Text>{nameEN}</Text>
+          </View>
+          <View style={styles.deleteBtn}>
+            <LabDeleteButtonImg
+              onPressButton={() => onDeletePressed(id)}
+            />
+          </View>
         </View>
-        <View style={styles.name}>
-          <Text>{name}</Text>
-          <Text>{nameEN}</Text>
-        </View>
-        <View style={styles.deleteBtn}>
-          <LabDeleteButtonImg
-            onPressButton={() => onDeletePressed(id)}
-          />
-        </View>
+        { needUnderline && <View style={styles.lineStyle} />}
       </View>
     );
   }
@@ -59,6 +70,7 @@ LabListItem.propTypes = {
   name: PropTypes.string.isRequired,
   nameEN: PropTypes.string.isRequired,
   onDeletePressed: PropTypes.func.isRequired,
+  needUnderline: PropTypes.bool,
 };
 
 export default LabListItem;
