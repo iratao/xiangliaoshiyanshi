@@ -7,6 +7,8 @@ const Action = {
   UPDATE_POST_TITLE: 6,
   UPDATE_POST_SUBTITLE: 7,
   CLEAR_POST_VIEW: 8,
+  UPDATE_LAB_RESULT: 9,
+  FETCH_MIXEDSPICES_SUCCEEDED: 10,
 };
 
 Object.freeze(Action);

@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { fetchPostsSucceeded } from '../actions/fetchPosts';
+import  { fetchMixedSpicesSucceeded } from '../actions/fetchMixedSpices';
 import { selectItem } from '../actions/selectItem';
 import updateNavigationState from '../actions/updateNavigationState';
 import { addSpicesToLab } from '../actions/addSpicesToLab';

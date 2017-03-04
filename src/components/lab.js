@@ -1,6 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, View, ListView, Image, Text } from 'react-native';
+import { StyleSheet, View, ListView, Image, Text, Button, NavigationExperimental } from 'react-native';
 import LabListItem from './labListItem';
+import RouteKeys from '../constants/routeKeys';
+
+const {
+  StateUtils: NavigationStateUtils,
+} = NavigationExperimental;
 
 const styles = StyleSheet.create({
   lab: {
@@ -13,6 +18,7 @@ class Lab extends Component {
     super(props);
     let ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     this.listDataSource = ds.cloneWithRows(props.labSpices);
+    this.routes = props.routes;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -21,6 +27,35 @@ class Lab extends Component {
 
   _onDeleteItemPressed(id) {
     this.props.deleteLabSpice(id);
+  }
+
+  updateNavigationState(routeKey, action) {
+    let currentNavigationState = this.props.navigationState;
+    let route = this.routes[routeKey];
+    let nextState;
+
+    switch (action) {
+      case 'pop':
+        nextState = NavigationStateUtils.pop(currentNavigationState);
+        break;
+      case 'push':
+        nextState = NavigationStateUtils.push(currentNavigationState, route);
+        break;
+      default:
+        nextState = undefined;
+    }
+
+    if (!nextState) {
+      return;
+    }
+
+    if (nextState !== currentNavigationState) {
+      this.props.updateNavigationState(nextState);
+    }
+  }
+
+  onPressMix() {
+    this.updateNavigationState(RouteKeys.LAB_RESULT, 'push');
   }
 
   renderRow(rowData, sectionID, rowID) {
@@ -51,6 +86,12 @@ class Lab extends Component {
           bounces={false}
           backgroundColor={'#FDFEFE'}
         />
+        <Button
+          onPress={() => this.onPressMix()}
+          title="Mix"
+          color="#841584"
+          accessibilityLabel="Mix the spices"
+        />
       </View>
     );
   }
@@ -59,6 +100,9 @@ class Lab extends Component {
 Lab.propTypes = {
   labSpices: PropTypes.array.isRequired,
   deleteLabSpice: PropTypes.func.isRequired,
+  routes: PropTypes.object.isRequired,
+  updateNavigationState: PropTypes.func.isRequired,
+  navigationState: PropTypes.object.isRequired,
 };
 
 export default Lab;

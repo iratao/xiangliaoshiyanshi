@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { deleteLabSpice } from '../actions/deleteLabSpice';
 import Lab from '../components/lab';
+import updateNavigationState from '../actions/updateNavigationState';
 
 
 const mapStateToProps = (state) => {
@@ -12,6 +13,8 @@ const mapStateToProps = (state) => {
   }
   return {
     labSpices,
+    navigationState: state.navigationState,
+    routes: state.routes,
   };
 };
 
@@ -19,6 +22,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     deleteLabSpice: (id) => {
       dispatch(deleteLabSpice(id));
+    },
+    updateNavigationState: (state) => {
+      dispatch(updateNavigationState(state));
     },
   };
 };

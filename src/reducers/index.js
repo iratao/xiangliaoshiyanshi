@@ -5,6 +5,8 @@ import navigationState from './navigationState';
 import routes from './routes';
 import labSpices from './labSpices';
 import postview from './postview';
+import labResult from './labResult';
+import mixedSpices from './mixedSpices';
 
 const rootReducer = combineReducers({
   posts,
@@ -12,7 +14,9 @@ const rootReducer = combineReducers({
   navigationState,
   routes,
   labSpices,
+  labResult,
   postview,
+  mixedSpices,
 });
 
 export default rootReducer;

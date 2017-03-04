@@ -6,6 +6,7 @@ import Post from '../containers/post';
 import RouteKeys from '../constants/routeKeys';
 import LabButton from './labButton';
 import Lab from '../containers/lab';
+import LabResult from '../containers/labResult';
 import NavBackButton from './backButton';
 
 import LabBottleInactiveImage from '../res/images/labbottle_inactive.png';
@@ -33,6 +34,11 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 18,
     fontFamily:  'PingFang SC',
+    fontWeight: 'normal',
+  },
+  titleTextLab: {
+    fontSize: 18,
+    fontFamily:  'Helvetica Neue',
     fontWeight: 'normal',
   },
   postList: {
@@ -139,6 +145,10 @@ export default class NavigatorApp extends Component {
       return (
         <Lab />
       );
+    } else if (scene.route.key === RouteKeys.LAB_RESULT) {
+      return (
+        <LabResult />
+      );
     }
     return null;
   }
@@ -196,10 +206,18 @@ export default class NavigatorApp extends Component {
     const state = props.scene.route;
     if (state.key === RouteKeys.HOME) {
       return (
-        <NavigationHeader.Title 
+        <NavigationHeader.Title
           textStyle={styles.titleText}
         >
           {'香料实验室'}
+        </NavigationHeader.Title>
+      );
+    } else if (state.key === RouteKeys.HOME) {
+      return (
+        <NavigationHeader.Title
+          textStyle={styles.titleTextLab}
+        >
+          {'LAB'}
         </NavigationHeader.Title>
       );
     }
