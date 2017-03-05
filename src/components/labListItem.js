@@ -33,23 +33,21 @@ class LabListItem extends Component {
   render() {
     const { id, cover, name, nameEN, onDeletePressed } = this.props;
     return (
-      <View>
-        <View style={styles.row}>
-          <View style={styles.coverView}>
-            <Image
-              style={styles.cover}
-              source={{ uri: cover }}
-            />
-          </View>
-          <View style={styles.name}>
-            <Text>{name}</Text>
-            <Text>{nameEN}</Text>
-          </View>
-          <View style={styles.deleteBtn}>
-            <LabDeleteButtonImg
-              onPressButton={() => onDeletePressed(id)}
-            />
-          </View>
+      <View style={styles.row}>
+        <View style={styles.coverView}>
+          <Image
+            style={styles.cover}
+            source={{ uri: cover }}
+          />
+        </View>
+        <View style={styles.name}>
+          <Text>{name}</Text>
+          <Text>{nameEN}</Text>
+        </View>
+        <View style={styles.deleteBtn}>
+          <LabDeleteButtonImg
+            onPressButton={() => onDeletePressed(id)}
+          />
         </View>
       </View>
     );

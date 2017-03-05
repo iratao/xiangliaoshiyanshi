@@ -77,12 +77,17 @@ class Lab extends Component {
   }
 
   renderSeparator(sectionID, rowID, adjacentRowHighlighted) {
-    return (
-      <View
-        key={`${sectionID}-${rowID}`}
-        style={styles.lineStyle}
-      />
-    );
+    let needUnderline = parseInt(rowID) === this.props.labSpices.length - 1 ? false : true;
+    if (needUnderline) {
+      return (
+        <View
+          key={`${sectionID}-${rowID}`}
+          style={styles.lineStyle}
+        />
+      );
+    } else {
+      return null;
+    }
   }
 
   render() {
@@ -95,6 +100,7 @@ class Lab extends Component {
           pageSize={3}
           scrollRenderAheadDistance={500}
           renderRow={(rowData, sectionID, rowID) => this.renderRow(rowData, sectionID, rowID)}
+          renderSeparator={this.renderSeparator.bind(this)}
           showsVerticalScrollIndicator={false}
           endFillColor={'#FDFEFE'}
           bounces={false}
