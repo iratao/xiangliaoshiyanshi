@@ -27,17 +27,11 @@ const styles = StyleSheet.create({
   deleteBtn: {
     paddingRight: 41,
   },
-  lineStyle: {
-    height: 1,
-    backgroundColor: '#FFCD0D',
-    marginLeft: 30,
-    marginRight: 30,
-  },
 });
 
 class LabListItem extends Component {
   render() {
-    const { id, cover, name, nameEN, onDeletePressed, needUnderline } = this.props;
+    const { id, cover, name, nameEN, onDeletePressed } = this.props;
     return (
       <View>
         <View style={styles.row}>
@@ -57,7 +51,6 @@ class LabListItem extends Component {
             />
           </View>
         </View>
-        { needUnderline && <View style={styles.lineStyle} />}
       </View>
     );
   }
@@ -70,7 +63,6 @@ LabListItem.propTypes = {
   name: PropTypes.string.isRequired,
   nameEN: PropTypes.string.isRequired,
   onDeletePressed: PropTypes.func.isRequired,
-  needUnderline: PropTypes.bool,
 };
 
 export default LabListItem;

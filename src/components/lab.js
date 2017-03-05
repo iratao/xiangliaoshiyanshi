@@ -11,6 +11,12 @@ const styles = StyleSheet.create({
   lab: {
     flex: 1,
   },
+  lineStyle: {
+    height: 1,
+    backgroundColor: '#FFCD0D',
+    marginLeft: 30,
+    marginRight: 30,
+  },
 });
 
 class Lab extends Component {
@@ -66,7 +72,15 @@ class Lab extends Component {
         name={rowData.name}
         nameEN={rowData.nameEN}
         onDeletePressed={id => this._onDeleteItemPressed(id)}
-        needUnderline={parseInt(rowID) === this.props.labSpices.length - 1 ? false : true}
+      />
+    );
+  }
+
+  renderSeparator(sectionID, rowID, adjacentRowHighlighted) {
+    return (
+      <View
+        key={`${sectionID}-${rowID}`}
+        style={styles.lineStyle}
       />
     );
   }
