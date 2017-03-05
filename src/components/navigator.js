@@ -212,7 +212,7 @@ export default class NavigatorApp extends Component {
           {'香料实验室'}
         </NavigationHeader.Title>
       );
-    } else if (state.key === RouteKeys.HOME) {
+    } else if (state.key === RouteKeys.LAB) {
       return (
         <NavigationHeader.Title
           textStyle={styles.titleTextLab}
