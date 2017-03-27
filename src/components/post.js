@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
   },
   label: {
-    fontWeight: '300',
+    fontWeight: '400',
     textAlign: 'left',
     flex: 0.35,
     paddingLeft: 30,
@@ -87,6 +87,9 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     flex: 0.65,
     paddingRight: 30,
+    fontFamily: 'PingFang SC',
+    fontSize: 16,
+    fontWeight: '200',
   },
   labelView: {
     height: 20,
@@ -133,10 +136,11 @@ class Post extends Component {
   }
 
   render() {
-    let { coverThumbnail, name, nameEN, genusSpecies, family, origin, introduction, medicalProperties, storageandchoice } = this.props.selectedItem;
+    let { coverThumbnail, name, nameEN, genusSpecies, family, origin, cookingUsage, otherName, introduction, medicalProperties, storageandchoice } = this.props.selectedItem;
     let genusSpeciesLabel = '种类';
     let familyLabel = '科';
     let originLabel = '原产地';
+    let otherNameLabel = '别名';
 
     let topOffset = this.scrollY.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE],
@@ -243,25 +247,23 @@ class Post extends Component {
           </Animated.View>
           <View style={styles.home}>
             <View style={styles.labelViewContainer}>
-              <View style={styles.labelView}><Text style={styles.label}>{genusSpeciesLabel}:</Text><Text style={styles.labelContent}>{genusSpecies}</Text></View>
-              <View style={styles.labelView}><Text style={styles.label}>{familyLabel}:</Text><Text style={styles.labelContent}>{family}</Text></View>
-              <View style={styles.labelView}><Text style={styles.label}>{originLabel}:</Text><Text style={styles.labelContent}>{origin}</Text></View>
+              <View style={styles.labelView}><Text style={styles.label}>{otherNameLabel}:</Text><Text style={styles.labelContent}>{otherName}</Text></View>
             </View>
           </View>
           <Animated.View style={[styles.page, { paddingTop: animatePaddingTop }]}>
-            <Text style={styles.pageContentTitle}>{'介绍'}</Text>
+            <Text style={styles.pageContentTitle}>{'简介'}</Text>
             <View style={styles.lineStyle} />
             <Text style={styles.pageContentBody}>{introduction}</Text>
           </Animated.View>
           <Animated.View style={[styles.page, { paddingTop: animatePaddingTop }]}>
-            <Text style={styles.pageContentTitle}>{'医用价值'}</Text>
+            <Text style={styles.pageContentTitle}>{'烹调用途'}</Text>
             <View style={styles.lineStyle} />
-            <Text style={styles.pageContentBody}>{medicalProperties}</Text>
+            <Text style={styles.pageContentBody}>{cookingUsage}</Text>
           </Animated.View>
           <Animated.View style={[styles.page, { paddingTop: animatePaddingTop }]}>
-            <Text style={styles.pageContentTitle}>{'储存与选购'}</Text>
+            <Text style={styles.pageContentTitle}>{'功效'}</Text>
             <View style={styles.lineStyle} />
-            <Text style={styles.pageContentBody}>{storageandchoice}</Text>
+            <Text style={styles.pageContentBody}>{medicalProperties}</Text>
           </Animated.View>
         </ScrollView>
       </View>
