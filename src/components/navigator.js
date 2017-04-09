@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headerLabIcon: {
-    width: 17,
-    height: 24,
+    width: 15.4,
+    height: 22,
     marginRight: 9,
   },
   header: {
