@@ -1,12 +1,7 @@
 import Action from '../constants/action';
 
-function updateLabResult(mixedSpiceId) {
+export function updateLabResult() {
   return {
     type: Action.UPDATE_LAB_RESULT,
-    {
-      id: mixedSpiceId,
-    },
   };
 }
-
-export default updateNavigationState;

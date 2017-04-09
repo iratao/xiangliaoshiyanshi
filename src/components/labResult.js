@@ -11,10 +11,12 @@ class LabResult extends Component {
 
 	render() {
 		let { labResult } = this.props;
+    let result = labResult && labResult.length > 0 ? labResult[0] : {};
 		return (
 			<View>
 				<ScrollView>
-        <Text>The Lab Result</Text>
+        <Text>{result.nameEN}</Text>
+        <Text>{result.introduction}</Text>
 				</ScrollView>
 			</View>
 		);
@@ -22,7 +24,7 @@ class LabResult extends Component {
 }
 
 LabResult.propTypes = {
-  labResult: PropTypes.object.isRequired,
+  labResult: PropTypes.array.isRequired,
 };
 
 export default LabResult;

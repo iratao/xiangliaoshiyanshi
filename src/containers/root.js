@@ -36,14 +36,6 @@ let store = createStore(rootReducers, {
     }],
   },
   labSpices: [],
-  labResult: {},
-  mixedSpices: {
-    "1": {
-      id: "1",
-      name: "mixed spice",
-      content: "mixed spice content",
-    },
-  },
 });
 
 class Root extends Component {
