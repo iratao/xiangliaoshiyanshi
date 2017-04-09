@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { fetchPostsSucceeded } from '../actions/fetchPosts';
+import { deleteLabSpice } from '../actions/deleteLabSpice';
 import { selectItem } from '../actions/selectItem';
 import updateNavigationState from '../actions/updateNavigationState';
 import { addSpicesToLab } from '../actions/addSpicesToLab';
@@ -38,6 +39,9 @@ const mapDispatchToProps = (dispatch) => {
     addToLab: (id) => {
       dispatch(addSpicesToLab(id));
     },
+    deleteLabSpice: (id) => {
+      dispatch(deleteLabSpice(id));
+    }
   };
 };
 

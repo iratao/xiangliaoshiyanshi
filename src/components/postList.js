@@ -12,6 +12,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#FDFEFE',
     paddingTop: 10,
   },
+  footer: {
+    height: 180,
+  }
 });
 
 class PostList extends Component {
@@ -44,6 +47,12 @@ class PostList extends Component {
     );
   }
 
+  renderFooter() {
+    return (
+      <View style={styles.footer}></View>
+    );
+  }
+
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: '#FDFEFE' }}>
@@ -54,6 +63,7 @@ class PostList extends Component {
           pageSize={3}
           scrollRenderAheadDistance={500}
           renderRow={(rowData) => this.renderRow(rowData)}
+          renderFooter={this.renderFooter}
           showsVerticalScrollIndicator={false}
           endFillColor={'#FDFEFE'}
           bounces={false}

@@ -184,7 +184,7 @@ export default class NavigatorApp extends Component {
   }
 
   _renderRightComponent(props) {
-    let { posts, selectedItem, addToLab } = this.props;
+    let { posts, selectedItem, addToLab, deleteLabSpice } = this.props;
     let spice = posts.find(mpost => mpost.id === selectedItem);
     let isItemInLab = this._isItemInLab(selectedItem);
     const state = props.scene.route;
@@ -192,7 +192,14 @@ export default class NavigatorApp extends Component {
       return (
         <TouchableOpacity
           style={styles.addToLabButtonContainer}
-          onPress={() => addToLab(spice.id)}
+          onPress={() => {
+            if (!isItemInLab) {
+              addToLab(spice.id);
+            } else {
+              deleteLabSpice(spice.id);
+            }
+
+          }}
         >
           <Image style={styles.headerLabIcon} source={ isItemInLab ? LabBottleActiveImage : LabBottleInactiveImage} />
           <Text style={styles.addToLabButton}>{ isItemInLab ? '已加入' : '加入实验室'}</Text>
