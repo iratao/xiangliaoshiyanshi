@@ -71,7 +71,7 @@ class LabResult extends Component {
 		return (
 			<View style={styles.resultCard}>
 				<View style={styles.header}>
-          <Image style={styles.cover} source={{ uri: result.cover }} />
+          <Image style={styles.cover} source={{uri: result.cover}} />
           <View style={styles.title}>
             <Text style={styles.mainTitle}>{result.nameEN}</Text>
             <Text style={styles.subTitle}>{result.name}</Text>
