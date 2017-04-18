@@ -1,15 +1,24 @@
 import React, { Component, PropTypes } from 'react';
 import { StyleSheet, Text, View, Animated, Easing, Image, Button, ScrollView, Dimensions, Platform } from 'react-native';
 
-const HOME_HEIGHT = 150;
-const HEADER_COVER_WIDTH = 264;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
+
+const HEADER_COVER_WIDTH = SCREEN_HEIGHT >= 667 ? 324 : 264;
 const NAVBAR_HEIGHT = Platform.OS === 'ios'? 64 : 54;
-const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 130 : 143;
+// const HOME_HEIGHT = SCREEN_HEIGHT - HEADER_COVER_WIDTH - NAVBAR_HEIGHT - 160;
+const HOME_HEIGHT = SCREEN_HEIGHT * 0.2;
+const HEADER_MIN_HEIGHT = SCREEN_HEIGHT >= 667 ? 140 : 130;
 const HEADER_MAX_HEIGHT = SCREEN_HEIGHT - NAVBAR_HEIGHT - HOME_HEIGHT;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 const PAGE_CONTENT_PADDING_TOP = 25;
+
+const TITLE_FONT_SIZE_ANIM_START = SCREEN_HEIGHT >= 667 ? 36 : 34;
+const TITLE_FONT_SIZE_ANIM_END = SCREEN_HEIGHT >= 667 ? 24 : 22;
+const SUBTITLE_FONT_SIZE_ANIM_START = SCREEN_HEIGHT >= 667 ? 20 : 18;
+const SUBTITLE_FONT_SIZE_ANIM_END = SCREEN_HEIGHT >= 667 ? 14 : 12;
+const PATE_CONTENT_TITLE_FONT_SIZE = SCREEN_HEIGHT >= 667 ? 20 : 18;
+const PATE_CONTENT_BODY_FONT_SIZE = SCREEN_HEIGHT >= 667 ? 16 : 14;
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -51,22 +60,17 @@ const styles = StyleSheet.create({
   },
   pageContentTitle: {
     fontFamily: 'PingFang SC',
-    fontSize: 20,
+    fontSize: PATE_CONTENT_TITLE_FONT_SIZE,
     fontWeight: '300',
   },
   pageContentBody: {
     fontFamily: 'PingFang SC',
-    fontSize: 16,
+    fontSize: PATE_CONTENT_BODY_FONT_SIZE,
     fontWeight: '100',
-  },
-  coverImage: {
-    width: 264,
-    height: 264,
-    borderRadius: 132,
   },
   title: {
     fontFamily: 'PingFang SC',
-    paddingTop: 20,
+    paddingTop: 30,
     paddingBottom: 8,
     fontWeight: '300',
   },
@@ -144,13 +148,13 @@ class Post extends Component {
 
     let topOffset = this.scrollY.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE],
-      outputRange: [130, -65],
+      outputRange: [130, - HEADER_COVER_WIDTH / 4],
       extrapolate: 'clamp',
     });
 
     let leftOffset = this.scrollY.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE],
-      outputRange: [SCREEN_WIDTH / 2 - 132, -50],
+      outputRange: [SCREEN_WIDTH / 2 - HEADER_COVER_WIDTH / 2, - HEADER_COVER_WIDTH / 4],
       extrapolate: 'clamp',
     });
 
@@ -162,13 +166,13 @@ class Post extends Component {
 
     let titleFontSizeAnim = this.scrollY.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE],
-      outputRange: [36, 24],
+      outputRange: [TITLE_FONT_SIZE_ANIM_START, TITLE_FONT_SIZE_ANIM_END],
       extrapolate: 'clamp',
     });
 
     let subtitleFontSizeAnim = this.scrollY.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE],
-      outputRange: [20, 14],
+      outputRange: [SUBTITLE_FONT_SIZE_ANIM_START, SUBTITLE_FONT_SIZE_ANIM_END],
       extrapolate: 'clamp',
     });
 

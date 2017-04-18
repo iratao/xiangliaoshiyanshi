@@ -1,18 +1,23 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
+
+const SCREEN_HEIGHT = Dimensions.get('window').height;
+const SCREEN_WIDTH = Dimensions.get('window').width;
+
+const THUMB_WIDTH = SCREEN_HEIGHT >= 667 ? 90 : 110;
 
 const styles = StyleSheet.create({
   row: {
     justifyContent: 'center',
     margin: 3,
-    width: 105,
-    height: 115,
+    width: THUMB_WIDTH + 15,
+    height: THUMB_WIDTH + 25,
     alignItems: 'center',
   },
   thumb: {
-    width: 90,
-    height: 90,
-    borderRadius: 45,
+    width: THUMB_WIDTH,
+    height: THUMB_WIDTH,
+    borderRadius: THUMB_WIDTH / 2,
   },
   text: {
     flex: 1,
