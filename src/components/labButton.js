@@ -34,7 +34,7 @@ class LabButton extends Component {
         onPress={this.props.onPressButton}
         style={styles.button}
       >
-        <Text style={styles.buttonText}>{'前往实验室'}</Text>
+        <Text style={styles.buttonText}>{this.props.buttonText}</Text>
       </TouchableOpacity>
     );
   }
@@ -42,6 +42,7 @@ class LabButton extends Component {
 
 LabButton.propTypes = {
   onPressButton: PropTypes.func.isRequired,
+  buttonText: PropTypes.string.isRequired,
 };
 
 export default LabButton;

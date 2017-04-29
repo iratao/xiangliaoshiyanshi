@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { StyleSheet, View, ListView, Image, Text, Button, NavigationExperimental } from 'react-native';
 import LabListItem from './labListItem';
 import RouteKeys from '../constants/routeKeys';
+import LabButton from './labButton';
 
 const {
   StateUtils: NavigationStateUtils,
@@ -10,6 +11,7 @@ const {
 const styles = StyleSheet.create({
   lab: {
     flex: 1,
+    backgroundColor: '#FDFEFE',
   },
   lineStyle: {
     height: 1,
@@ -17,6 +19,9 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     marginRight: 30,
   },
+  footer: {
+    height: 40,
+  }
 });
 
 class Lab extends Component {
@@ -90,6 +95,12 @@ class Lab extends Component {
     }
   }
 
+  renderFooter() {
+    return (
+      <View style={styles.footer}></View>
+    );
+  }
+
   render() {
     return (
       <View style={styles.lab}>
@@ -101,16 +112,15 @@ class Lab extends Component {
           scrollRenderAheadDistance={500}
           renderRow={(rowData, sectionID, rowID) => this.renderRow(rowData, sectionID, rowID)}
           renderSeparator={this.renderSeparator.bind(this)}
+          renderFooter={this.renderFooter}
           showsVerticalScrollIndicator={false}
           endFillColor={'#FDFEFE'}
           bounces={false}
           backgroundColor={'#FDFEFE'}
         />
-        <Button
-          onPress={() => this.onPressMix()}
-          title="Mix"
-          color="#841584"
-          accessibilityLabel="Mix the spices"
+        <LabButton
+          onPressButton={this.onPressMix.bind(this)}
+          buttonText={'MIX'}
         />
       </View>
     );

@@ -30,7 +30,7 @@ export function fetchPostsSucceeded() {
         "id": 3,
         "name": "众香子",
         "nameEN": "Allspice",
-        "otherName": "多香果",
+        "otherName": "多香果、牙买加胡椒",
         "cover": "https://img1.doubanio.com/view/photo/lphoto/public/p2454810157.jpg",
         "coverThumbnail": "https://img1.doubanio.com/view/photo/lphoto/public/p2454810157.jpg",
         "introduction": "众香子原产于中、南美洲。经过干燥后，众香子变为棕色，外形和棕色大颗的胡椒很类似。众香子是一种三位一体的香料，兼有肉桂、豆蔻和丁香的味道。使用时最好购买整粒需要时现磨使用以保留其风味。",

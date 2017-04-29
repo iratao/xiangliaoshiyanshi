@@ -19,6 +19,9 @@ const SUBTITLE_FONT_SIZE_ANIM_START = SCREEN_HEIGHT >= 667 ? 20 : 18;
 const SUBTITLE_FONT_SIZE_ANIM_END = SCREEN_HEIGHT >= 667 ? 14 : 12;
 const PATE_CONTENT_TITLE_FONT_SIZE = SCREEN_HEIGHT >= 667 ? 20 : 18;
 const PATE_CONTENT_BODY_FONT_SIZE = SCREEN_HEIGHT >= 667 ? 16 : 14;
+const LABEL_FONT_SIZE = SCREEN_HEIGHT >= 667 ? 16 : 14;
+const LABEL_CONTENT_FONT_SIZE = SCREEN_HEIGHT >= 667 ? 16 : 14;
+const TITLE_LEFT_FINAL = SCREEN_HEIGHT >= 667 ? 160 : 140;
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -85,14 +88,14 @@ const styles = StyleSheet.create({
     flex: 0.35,
     paddingLeft: 30,
     fontFamily: 'PingFang SC',
-    fontSize: 16,
+    fontSize: LABEL_FONT_SIZE,
   },
   labelContent: {
     textAlign: 'right',
     flex: 0.65,
     paddingRight: 30,
     fontFamily: 'PingFang SC',
-    fontSize: 16,
+    fontSize: LABEL_CONTENT_FONT_SIZE,
     fontWeight: '200',
   },
   labelView: {
@@ -102,8 +105,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   labelViewContainer: {
-    paddingTop: 0,
-    paddingBottom: 20,
+    paddingTop: 20,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
@@ -190,13 +192,13 @@ class Post extends Component {
 
     let titleLeftAnim = this.scrollY.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE],
-      outputRange: [this.props.postview.initialTitleLeft, 160],
+      outputRange: [this.props.postview.initialTitleLeft, TITLE_LEFT_FINAL],
       extrapolate: 'clamp',
     });
 
     let subtitleLeftAnim = this.scrollY.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE],
-      outputRange: [this.props.postview.initialSubtitleLeft, 160],
+      outputRange: [this.props.postview.initialSubtitleLeft, TITLE_LEFT_FINAL],
       extrapolate: 'clamp',
     });
 
@@ -251,7 +253,14 @@ class Post extends Component {
           </Animated.View>
           <View style={styles.home}>
             <View style={styles.labelViewContainer}>
-              <View style={styles.labelView}><Text style={styles.label}>{otherNameLabel}:</Text><Text style={styles.labelContent}>{otherName}</Text></View>
+              <View style={styles.labelView}>
+                <Text style={styles.label}>{otherNameLabel}:</Text>
+                <Text style={styles.labelContent}>{otherName}</Text>
+              </View>
+              <View style={styles.labelView}>
+                <Text style={styles.label}>{originLabel}:
+                </Text><Text style={styles.labelContent}>{otherName}</Text>
+              </View>
             </View>
           </View>
           <Animated.View style={[styles.page, { paddingTop: animatePaddingTop }]}>

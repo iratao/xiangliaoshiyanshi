@@ -134,6 +134,7 @@ export default class NavigatorApp extends Component {
           />
           <LabButton
             onPressButton={this._onLabButtonPressed}
+            buttonText={'前往实验室'}
           />
         </View>
       );
