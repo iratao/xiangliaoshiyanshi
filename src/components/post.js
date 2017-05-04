@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, Text, View, Animated, Easing, Image, Button, ScrollView, Dimensions, Platform } from 'react-native';
+import { StyleSheet, Text, View, Animated, Easing, Image, Button, TouchableHighlight, ScrollView, Dimensions, Platform } from 'react-native';
+import DownArrowImage from '../res/images/arrow_down.png';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -22,6 +23,7 @@ const PATE_CONTENT_BODY_FONT_SIZE = SCREEN_HEIGHT >= 667 ? 16 : 14;
 const LABEL_FONT_SIZE = SCREEN_HEIGHT >= 667 ? 16 : 14;
 const LABEL_CONTENT_FONT_SIZE = SCREEN_HEIGHT >= 667 ? 16 : 14;
 const TITLE_LEFT_FINAL = SCREEN_HEIGHT >= 667 ? 160 : 140;
+const DOWN_ARROW_SIZE = SCREEN_HEIGHT >= 667 ? 40 : 30;
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -103,6 +105,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
+    marginBottom: 5,
   },
   labelViewContainer: {
     paddingTop: 20,
@@ -139,6 +142,14 @@ class Post extends Component {
         initialSubtitleLeft: (SCREEN_WIDTH - event.nativeEvent.layout.width) / 2,
       });
     }
+  }
+
+  nextPage() {
+    this.scrollView.scrollTo({
+      y: HEADER_MAX_HEIGHT + HOME_HEIGHT,
+      x: 0,
+      animated: true,
+    });
   }
 
   render() {
@@ -205,6 +216,7 @@ class Post extends Component {
     return (
       <View>
         <ScrollView
+          ref={(scrollView) => { this.scrollView = scrollView; }}
           contentContainerStyle={styles.scrollView}
           pagingEnabled={true}
           onScroll={Animated.event(
@@ -259,9 +271,18 @@ class Post extends Component {
               </View>
               <View style={styles.labelView}>
                 <Text style={styles.label}>{originLabel}:
-                </Text><Text style={styles.labelContent}>{otherName}</Text>
+                </Text><Text style={styles.labelContent}>{origin}</Text>
               </View>
             </View>
+            <TouchableHighlight
+              onPress={this.nextPage.bind(this)}
+              underlayColor={'#FDFEFE'}
+            >
+              <Image
+                source={DownArrowImage}
+                style={{width: DOWN_ARROW_SIZE, height: DOWN_ARROW_SIZE, marginTop: 10}}
+              />
+            </TouchableHighlight>
           </View>
           <Animated.View style={[styles.page, { paddingTop: animatePaddingTop }]}>
             <Text style={styles.pageContentTitle}>{'简介'}</Text>

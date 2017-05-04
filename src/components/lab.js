@@ -66,6 +66,9 @@ class Lab extends Component {
   }
 
   onPressMix() {
+    if (this.props.labSpices.length === 0) {
+      return;
+    }
     this.updateNavigationState(RouteKeys.LAB_RESULT, 'push');
   }
 
