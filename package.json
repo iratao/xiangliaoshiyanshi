@@ -10,7 +10,7 @@
   "dependencies": {
     "eslint-plugin-import": "^1.16.0",
     "invariant": "^2.2.2",
-    "react": "^15.4.1",
+    "react": "^15.4.2",
     "react-native": "^0.39.2",
     "react-native-action-button": "^2.0.16",
     "react-native-hr": "^1.1.3",

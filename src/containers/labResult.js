@@ -37,7 +37,7 @@ let mixedSpices = [
     "introduction": "摩洛哥混合香料是北非烹饪中常见的混合香料，尤其在摩洛哥美食中。阿拉伯语将其称为“镇店之宝”，即最好的香料。典型的摩洛哥混合香料由小豆蔻、丁香、肉桂、芫荽、孜然、辣椒粉、肉豆蔻、胡椒粉和姜黄组成。\n摩洛哥混合香料有一股刺鼻而辛辣的味道。肉桂、丁香和肉豆蔻给香料增添了稍许的甜味。 人们经常将其用作腌料或用它给炖菜调味。摩洛哥人甚至相信它具有壮阳的作用。",
     "cover": "https://img3.doubanio.com/view/photo/lphoto/public/p2454965324.jpg",
     "coverThumbnail": "https://img3.doubanio.com/view/photo/photo/public/p2401931302.jpg",
-    "ingredients": [6, 16, 4, 13, 14, 7, 15],
+    "ingredients": [6, 10, 16, 4, 13, 14, 7, 15],
   },
   {
     "id": 5,
